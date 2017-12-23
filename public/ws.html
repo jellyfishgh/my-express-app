@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+</head>
+
+<body>
+    <p>
+        录像：
+        <input type="file" id="file" accept="video/*" capture="camcorder" />
+    </p>
+    <img id="img" src="" alt="" />
+    <button id="btn">websocket 连接</button>
+</body>
+<script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+<script>
+    // var chunkSize = 100*1024
+    function connect() {
+        console.log('connect')
+        var socket = io('http://localhost:3001');
+        socket.on('news', function (data) {
+            console.log(data);
+            socket.emit('my other event', { my: 'data' });
+        });
+        // var socket = new WebSocket('ws://127.0.0.1:3001')
+        // socket.onopen = function () {
+        //     console.log('socket open')
+        // }
+        // socket.onerror = function (err) {
+        //     console.log(err)
+        // }
+        // socket.onclose = function () {
+        //     console.log('socket close')
+        // }
+        // socket.addEventListener('open', function (event) {
+        //     // var len = blob.size
+        //     // let n = len / chunkSize
+        //     // var num = len % chunkSize === 0 ? n : n + 1
+        //     // for (var i = 0; i < num ; i++) {
+        //     //     let data = i === num -1 ? blob.slice( i * chunkSize) : blob.slice( i * chunkSize, ( i + 1 )*chunkSize - 1)
+        //     //     socket.send(data)
+        //     // }
+        //     // socket.send(blob)
+        //     console.log('socket open')
+        // });
+        // Listen for messages
+        // socket.addEventListener('message', function (event) {
+        //     console.log('Message from server ', event.data);
+        // });
+    }
+    document.getElementById('btn').onclick = connect
+    document.querySelector('#file').onchange = function (e) {
+        var file = this.files[0]
+        if (!file) return
+        socket.send(file)
+    }
+
+        // function ws(blob) {
+        //     var socket = new WebSocket('ws://localhost:8080');
+
+        //     // Connection opened
+        //     socket.addEventListener('open', function (event) {
+        //         // var len = blob.size
+        //         // let n = len / chunkSize
+        //         // var num = len % chunkSize === 0 ? n : n + 1
+        //         // for (var i = 0; i < num ; i++) {
+        //         //     let data = i === num -1 ? blob.slice( i * chunkSize) : blob.slice( i * chunkSize, ( i + 1 )*chunkSize - 1)
+        //         //     socket.send(data)
+        //         // }
+        //         socket.send(blob)
+        //     });
+
+        //     // Listen for messages
+        //     socket.addEventListener('message', function (event) {
+        //         console.log('Message from server ', event.data);
+        //     });
+        // }
+
+</script>
+
+</html>
