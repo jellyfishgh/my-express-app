@@ -8,7 +8,8 @@ var bodyParser = require('body-parser')
 var index = require('./routes/index')
 var users = require('./routes/users')
 var api = require('./routes/api')
-var img = require('./routes/img')
+var tj = require('./routes/tj')
+var form = require('./routes/form')
 
 var app = express()
 
@@ -23,9 +24,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/api', api)
+app.use('/wsxhapi', api)
 app.use('/users', users)
-app.use('/img', img)
+app.use('/form', form)
+app.use('/tj', tj)
 app.use('/*', index)
 
 // catch 404 and forward to error handler
