@@ -5,10 +5,10 @@ var formidable = require('formidable')
 const videos = []
 const resHandler = (req, res, next) => {
   var form = new formidable.IncomingForm()
-  form.parse(req, function(err, fields, files) {
+  form.parse(req, function (err, fields, files) {
     console.log('fields', fields)
     console.log('files', files)
-    res.send('respond with a resource')
+    res.render('form', { title: 'Form', params: JSON.stringify(fields) })
   })
 }
 
